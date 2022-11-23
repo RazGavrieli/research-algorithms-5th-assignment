@@ -36,9 +36,8 @@ class bounded_subsets:
                 return self.currResults.pop()
             self.currSum += 1
         raise StopIteration
-        
-
-    def subsetSum(self, n, sum, res=[]):
+    
+    def subsetSum(self, currentItem, sum, res=[]):
         """
         Sovles the subset sub problem recursivly. 
         Gets an array, it's length-1, and a sum (for the subset sum problem)
@@ -55,13 +54,13 @@ class bounded_subsets:
             self.currResults.append(res)
             return True
         # if we are out of items or sum is negative return false because current branch of recursion can't solve the problem
-        if n < 0 or sum < 0:
+        if currentItem < 0 or sum < 0:
             return False
     
         # take the current item
-        takeCurrentItem = self.subsetSum(n - 1, sum - self.s[n], res+[self.s[n]])
+        takeCurrentItem = self.subsetSum(currentItem - 1, sum - self.s[currentItem], res+[self.s[currentItem]])
         # dont take current item
-        dontTakeCurrentItem = self.subsetSum(n - 1, sum, res)
+        dontTakeCurrentItem = self.subsetSum(currentItem - 1, sum, res)
     
         return takeCurrentItem or dontTakeCurrentItem
 
@@ -81,5 +80,5 @@ if __name__ == '__main__':
 
 
     print("\n\n---bounded_subsets(range(100), 1000000000000)---")
-    for t in zip(range(5), bounded_subsets(range(100), 1000000000000)):
-        print("|",s," sum:", sum(s), end=" ")
+    for s in zip(range(5), bounded_subsets(range(100), 1000000000000)):
+        print("|",s," sum:(s[1]):", sum(s[1]),end=" \n")
