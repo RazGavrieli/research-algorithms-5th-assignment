@@ -17,14 +17,11 @@ class bounded_subsets:
         self.lenS = len(s)
         self.s = list(s)
         self.c = c
-        self.currSum = 0
-        self.currResults = []
+        self.currSum = 0 # the "counter" of the iterator, once currSum == c we stop the iteration
+        self.currResults = [] # used to save every result
 
         self.s.sort() # put zeros infront
-        self.zeroIncluded = 0 in self.s
-
-
-
+        self.zeroIncluded = 0 in self.s # used in subsetSum() to append zeros to every result if needed
 
     def __iter__(self):
         return self
@@ -51,44 +48,38 @@ class bounded_subsets:
         >>> bounded_subsets([1,2,3], 4).subsetSum(2, 7)
         False
         """
-        # return true if the sum becomes 0 (subset found)
+        # if sum == 0 append the result and return true to stop recursion
         if sum == 0:
             if self.zeroIncluded:
                self.currResults.append(res+[0])
             self.currResults.append(res)
             return True
-
-        # base case: no items left, or sum becomes negative
+        # if we are out of items or sum is negative return false because current branch of recursion can't solve the problem
         if n < 0 or sum < 0:
             return False
     
-        # Case 1. Include the current item `arr[n]` in the subset and recur
-        # for the remaining items `n-1` with the remaining total `sum-arr[n]`
-        include = self.subsetSum(n - 1, sum - self.s[n], res+[self.s[n]])
+        # take the current item
+        takeCurrentItem = self.subsetSum(n - 1, sum - self.s[n], res+[self.s[n]])
+        # dont take current item
+        dontTakeCurrentItem = self.subsetSum(n - 1, sum, res)
     
-        # Case 2. Exclude the current item `arr[n]` from the subset and recur for
-        # the remaining items `n-1`
-        exclude = self.subsetSum(n - 1, sum, res)
-    
-        # return true if we can get subset by including or excluding the
-        # current item
-        return include or exclude
-
+        return takeCurrentItem or dontTakeCurrentItem
 
 
 if __name__ == '__main__':
     import doctest
-    doctest.testmod(verbose=True)
+    doctest.testmod()
 
-    # for s in bounded_subsets([1,0,2,3], 4):
-    #     print(s, sum(s))
+    print("\n---bounded_subsets([1,0,2,3], 4)---")
+    for s in bounded_subsets([1,0,2,3], 4):
+        print("|",s," sum:", sum(s), end=" ")
 
-    # print("-----")
+    print("\n\n---bounded_subsets(range(50,150), 103)---")
 
-    # for s in bounded_subsets(range(50,150), 103):
-    #     print(s, sum(s), end="\n")
+    for s in bounded_subsets(range(50,150), 103):
+        print("|",s," sum:", sum(s), end=" ")
 
 
-    # print("-----")
-    # for t in zip(range(5), bounded_subsets(range(100), 1000000000000)):
-    #     print(t)
+    print("\n\n---bounded_subsets(range(100), 1000000000000)---")
+    for t in zip(range(5), bounded_subsets(range(100), 1000000000000)):
+        print("|",s," sum:", sum(s), end=" ")
