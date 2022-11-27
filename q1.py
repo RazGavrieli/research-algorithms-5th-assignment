@@ -27,19 +27,23 @@ class bounded_subsets:
         return self
 
     def __next__(self):
+        print(self.currResults)
+        # if self.currResults is not empty, than we are still iterating through the results of the last subsetSum
         if len(self.currResults) != 0:
             return self.currResults.pop()
 
+        # while the currSum of the subsets is less than the const self.c we were given
         while self.currSum <= self.c:
             if self.subsetSum(self.lenS-1, self.currSum):
                 self.currSum += 1
                 return self.currResults.pop()
             self.currSum += 1
+        # stop iteration if the currSum is greater than self.c
         raise StopIteration
     
     def subsetSum(self, currentItem, sum, res=[]):
         """
-        Sovles the subset sub problem recursivly. 
+        Solves the subset sub problem recursivly. 
         Gets an array, it's length-1, and a sum (for the subset sum problem)
         Returns true or false, if one of the paths in the tree (recursion) is true, then appends the result into self.currResults.
         >>> bounded_subsets([1,2,3], 4).subsetSum(2, 4)
@@ -77,7 +81,6 @@ if __name__ == '__main__':
 
     for s in bounded_subsets(range(50,150), 103):
         print("|",s," sum:", sum(s), end=" ")
-
 
     print("\n\n---bounded_subsets(range(100), 1000000000000)---")
     for s in zip(range(5), bounded_subsets(range(100), 1000000000000)):
