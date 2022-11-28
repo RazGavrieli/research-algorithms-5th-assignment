@@ -8,6 +8,12 @@ def elections(algorithm: Callable, input, combinedTuples, outtype: out.OutputTyp
     1.Handles the different kinds of inputs, 
     2.Performs the algorithm according to the requested algorithm
     3.Handles the output according to the requested output
+
+    usage examples:
+    >>> elections(webstersF, [Party("ot1", 200, 0), Party("ot2", 400, 0), Party("ot3", 50, 0), Party("ot4", 1000, 0)], None, outtype=out.oneLineOutput)
+    1to, 15 | 2to, 29 | 3to, 4 | 4to, 72 | 
+    >>> elections(jeffersonsF, [Party("ot1", 200, 0), Party("ot2", 400, 0), Party("ot3", 50, 0), Party("ot4", 1000, 0)], None, outtype=out.oneLineOutput)
+    1to, 14 | 2to, 29 | 3to, 3 | 4to, 74 | 
     """
 
     """1. Handles the input:"""
@@ -51,5 +57,9 @@ if __name__ == "__main__":
     import doctest
     doctest.testmod()
 
-    parties = elections(jeffersonsF, 'results.csv', [(0,2),(1,3),(4,5)], outtype=out.shortCsvOutput)
-    parties = elections(webstersF, [Party("ot1", 200, 0), Party("ot2", 400, 0), Party("ot3", 150, 0), Party("ot4", 1000, 0)], None, outtype=out.shortPrintedOutput)
+    #parties = elections(jeffersonsF, 'results.csv', [(0,2),(1,3),(4,5)], outtype=out.fullPrintedOutput)
+    #parties = elections(webstersF, [Party("ot1", 200, 0), Party("ot2", 400, 0), Party("ot3", 150, 0), Party("ot4", 1000, 0)], None, outtype=out.shortPrintedOutput)
+    parties = elections(webstersF, [Party("ot1", 200, 0), Party("ot2", 400, 0), Party("ot3", 150, 0), Party("ot4", 1000, 0)], None, outtype=out.oneLineOutput)
+
+    
+# 2025

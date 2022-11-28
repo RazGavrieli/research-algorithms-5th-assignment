@@ -2,6 +2,7 @@ from abc import ABC
 from typing import Callable
 import csv 
 from elections import *
+
 class OutputType(ABC):
     @classmethod
     def extract_output_from_calculated_list(cls, list: list) -> list:
@@ -47,3 +48,22 @@ class shortCsvOutput(OutputType):
             for party in parties:
                 csvwriter.writerow([party.name[::-1], party.newSeats])
         return parties
+
+class biggestPartyOutput(OutputType):
+    @classmethod
+    def extract_output_from_calculated_list(cls, parties: list) -> list:
+        max = 0
+        name = ""
+        for party in parties:
+            if party.newSeats > max:
+                max = party.newSeats
+                name = party.name
+        print("\t"+name, "\t",max,"\t")
+        return parties
+
+class oneLineOutput(OutputType):
+    @classmethod
+    def extract_output_from_calculated_list(cls, parties: list) -> list:
+        for party in parties:
+            print(party.name+", "+str(party.newSeats)+" | ", end="")
+        #return parties

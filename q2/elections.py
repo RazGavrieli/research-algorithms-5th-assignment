@@ -37,7 +37,9 @@ def initializePartiesFromFile(filename) -> list:
     return parties
 
 def sumGoodVotes(parties: list) -> int:
-    """returns a sum of good votes in this election (Gets a party list)"""
+    """returns a sum of good votes in this election (Gets a party list)
+    >>> sumGoodVotes([Party(votesNum=50),Party(votesNum=70)])
+    120"""
     sum = 0
     for party in parties:
         sum += party.votes
@@ -63,10 +65,18 @@ def electionsAlgorithm(parties: list, seats: int = 120) -> int:
     """
     allocate seats to each party according to [(the amount of good votes) divided by (the amount of seats) (rounded down)]
     returns the amount of unalloccated seats (were not allocated due to rounding)
+    >>> electionsAlgorithm([Party(votesNum=50),Party(votesNum=70)])
+    120
+    >>> electionsAlgorithm([Party("ot1", 200, 0), Party("ot2", 400, 0), Party("ot3", 150, 0), Party("ot4", 1000, 0)])
+    118
     """
-    seatCostInVotes = int(sumGoodVotes(parties=parties)/seats)
+    seatCostInVotes = sumGoodVotes(parties=parties)/seats
     allocatedSeats = 0
     for party in parties:
         party.newSeats = int(party.votes/seatCostInVotes)
         allocatedSeats += party.newSeats
     return allocatedSeats
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
