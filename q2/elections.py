@@ -1,13 +1,13 @@
 import csv
 import math as m
 class Party:
-    def __init__(self, name, votesNum, originalSeat, newSeats = 0, originalPartiesTuple: tuple=None) -> None:
+    def __init__(self, name="", votesNum=0, originalSeat=0, newSeats = 0, originalPartiesTuple: tuple=None) -> None:
         self.name = name[::-1] # reverse hebrew string
         if isinstance(votesNum, str):
             self.votes = int(votesNum.replace(',', ''))
         else:
             self.votes = votesNum
-        self.seats = None #int(originalSeat)
+        self.seats = int(originalSeat)
         self.newSeats = newSeats
         self.originalParties = originalPartiesTuple
     
