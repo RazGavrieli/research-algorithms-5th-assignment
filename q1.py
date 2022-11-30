@@ -27,7 +27,6 @@ class bounded_subsets:
         return self
 
     def __next__(self):
-        print(self.currResults)
         # if self.currResults is not empty, than we are still iterating through the results of the last subsetSum
         if len(self.currResults) != 0:
             return self.currResults.pop()
@@ -70,18 +69,24 @@ class bounded_subsets:
 
 
 if __name__ == '__main__':
-    import doctest
-    doctest.testmod()
+    # import doctest
+    # doctest.testmod()
 
-    print("\n---bounded_subsets([1,0,2,3], 4)---")
-    for s in bounded_subsets([1,0,2,3], 4):
-        print("|",s," sum:", sum(s), end=" ")
+    # print("\n---bounded_subsets([1,0,2,3], 4)---")
+    # for s in bounded_subsets([1,0,2,3], 4):
+    #     print("|",s," sum:", sum(s), end=" ")
 
-    print("\n\n---bounded_subsets(range(50,150), 103)---")
+    # print("\n\n---bounded_subsets(range(50,150), 103)---")
 
-    for s in bounded_subsets(range(50,150), 103):
-        print("|",s," sum:", sum(s), end=" ")
+    # for s in bounded_subsets(range(50,150), 103):
+    #     print("|",s," sum:", sum(s), end=" ")
 
-    print("\n\n---bounded_subsets(range(100), 1000000000000)---")
-    for s in zip(range(5), bounded_subsets(range(100), 1000000000000)):
-        print("|",s," sum:(s[1]):", sum(s[1]),end=" \n")
+    # print("\n\n---bounded_subsets(range(100), 1000000000000)---")
+    # for s in zip(range(5), bounded_subsets(range(100), 1000000000000)):
+    #     print("|",s," sum:(s[1]):", sum(s[1]),end=" \n")
+
+    for s in bounded_subsets(list(range(90,100)) + list(range(920,1000)), 1000):
+        print(s) 
+    
+    # for s in list(range(90,100)) + list(range(920,1000)):
+    #     print(s)
